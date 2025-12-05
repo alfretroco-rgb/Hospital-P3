@@ -2,24 +2,25 @@
 #include "../persistencia/GestorArchivos.hpp"
 #include <iostream>
 #include <cstring>
+using namespace std;
 
 void agendarCita() {
-    std::cout << "=== AGENDAR CITA ===" << std::endl;
+    cout << "=== AGENDAR CITA ===" << endl;
 
     int idPaciente, idDoctor;
     char fecha[11], hora[6], motivo[150];
 
-    std::cout << "ID Paciente: ";
-    std::cin >> idPaciente;
-    std::cout << "ID Doctor: ";
-    std::cin >> idDoctor;
-    std::cin.ignore();
-    std::cout << "Fecha (DD/MM/AAAA): ";
-    std::cin.getline(fecha, 11);
-    std::cout << "Hora (HH:MM): ";
-    std::cin.getline(hora, 6);
-    std::cout << "Motivo: ";
-    std::cin.getline(motivo, 150);
+    cout << "ID Paciente: ";
+    cin >> idPaciente;
+    cout << "ID Doctor: ";
+    cin >> idDoctor;
+    cin.ignore();
+    cout << "Fecha (DD/MM/AAAA): ";
+    cin.getline(fecha, 11);
+    cout << "Hora (HH:MM): ";
+    cin.getline(hora, 6);
+    cout << "Motivo: ";
+    cin.getline(motivo, 150);
 
     ArchivoHeader header = GestorArchivos::leerHeader("datos/citas.bin");
     int id = header.proximoID++;
@@ -29,22 +30,22 @@ void agendarCita() {
 
     if (c.validarDatos()) {
         if (GestorArchivos::agregarRegistro(c, "datos/citas.bin")) {
-            std::cout << "Cita agendada." << std::endl;
+            cout << "Cita agendada." << endl;
             c.mostrarInformacionBasica();
         } else {
-            std::cout << "Error al guardar." << std::endl;
+            cout << "Error al guardar." << endl;
         }
     } else {
-        std::cout << "Datos invalidos." << std::endl;
+        cout << "Datos invalidos." << endl;
     }
 }
 
 void buscarCitaPorID() {
-    std::cout << "=== BUSCAR CITA POR ID ===" << std::endl;
+    cout << "=== BUSCAR CITA POR ID ===" << endl;
     int id;
-    std::cout << "ID: ";
-    std::cin >> id;
-    std::cin.ignore();
+    cout << "ID: ";
+    cin >> id;
+    cin.ignore();
 
     int indice = GestorArchivos::buscarIndiceDeID<Cita>(id, "datos/citas.bin");
     if (indice != -1) {
@@ -55,11 +56,11 @@ void buscarCitaPorID() {
             return;
         }
     }
-    std::cout << "Cita no encontrada." << std::endl;
+    cout << "Cita no encontrada." << endl;
 }
 
 void listarCitasPendientes() {
-    std::cout << "=== CITAS PENDIENTES ===" << std::endl;
+    cout << "=== CITAS PENDIENTES ===" << endl;
     ArchivoHeader header = GestorArchivos::leerHeader("datos/citas.bin");
     for (int i = 0; i < header.cantidadRegistros; ++i) {
         Cita c;
@@ -70,11 +71,11 @@ void listarCitasPendientes() {
 }
 
 void atenderCita() {
-    std::cout << "=== ATENDER CITA ===" << std::endl;
+    cout << "=== ATENDER CITA ===" << endl;
     int id;
-    std::cout << "ID Cita: ";
-    std::cin >> id;
-    std::cin.ignore();
+    cout << "ID Cita: ";
+    cin >> id;
+    cin.ignore();
 
     int indice = GestorArchivos::buscarIndiceDeID<Cita>(id, "datos/citas.bin");
     if (indice != -1) {
@@ -83,21 +84,21 @@ void atenderCita() {
         if (!c.isEliminado() && !c.isAtendida()) {
             c.marcarComoAtendida();
             GestorArchivos::actualizarRegistro(id, c, "datos/citas.bin");
-            std::cout << "Cita atendida." << std::endl;
+            cout << "Cita atendida." << endl;
         } else {
-            std::cout << "Cita ya atendida o eliminada." << std::endl;
+            cout << "Cita ya atendida o eliminada." << endl;
         }
     } else {
-        std::cout << "Cita no encontrada." << std::endl;
+        cout << "Cita no encontrada." << endl;
     }
 }
 
 void cancelarCita() {
-    std::cout << "=== CANCELAR CITA ===" << std::endl;
+    cout << "=== CANCELAR CITA ===" << endl;
     int id;
-    std::cout << "ID Cita: ";
-    std::cin >> id;
-    std::cin.ignore();
+    cout << "ID Cita: ";
+    cin >> id;
+    cin.ignore();
 
     int indice = GestorArchivos::buscarIndiceDeID<Cita>(id, "datos/citas.bin");
     if (indice != -1) {
@@ -106,9 +107,9 @@ void cancelarCita() {
         if (!c.isEliminado()) {
             c.cancelar();
             GestorArchivos::actualizarRegistro(id, c, "datos/citas.bin");
-            std::cout << "Cita cancelada." << std::endl;
+            cout << "Cita cancelada." << endl;
         }
     } else {
-        std::cout << "Cita no encontrada." << std::endl;
+        cout << "Cita no encontrada." << endl;
     }
 }

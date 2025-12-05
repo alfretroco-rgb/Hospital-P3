@@ -2,27 +2,28 @@
 #include "../persistencia/GestorArchivos.hpp"
 #include <iostream>
 #include <cstring>
+using namespace std;
 
 void registrarDoctor() {
-    std::cout << "=== REGISTRAR NUEVO DOCTOR ===" << std::endl;
+    cout << "=== REGISTRAR NUEVO DOCTOR ===" << endl;
 
     char nombre[50], apellido[50], cedula[20], especialidad[50];
     int anios;
     float costo;
 
-    std::cout << "Nombre: ";
-    std::cin.getline(nombre, 50);
-    std::cout << "Apellido: ";
-    std::cin.getline(apellido, 50);
-    std::cout << "Cedula: ";
-    std::cin.getline(cedula, 20);
-    std::cout << "Especialidad: ";
-    std::cin.getline(especialidad, 50);
-    std::cout << "Anios de experiencia: ";
-    std::cin >> anios;
-    std::cout << "Costo de consulta: ";
-    std::cin >> costo;
-    std::cin.ignore();
+    cout << "Nombre: ";
+    cin.getline(nombre, 50);
+    cout << "Apellido: ";
+    cin.getline(apellido, 50);
+    cout << "Cedula: ";
+    cin.getline(cedula, 20);
+    cout << "Especialidad: ";
+    cin.getline(especialidad, 50);
+    cout << "Anios de experiencia: ";
+    cin >> anios;
+    cout << "Costo de consulta: ";
+    cin >> costo;
+    cin.ignore();
 
     ArchivoHeader header = GestorArchivos::leerHeader("datos/doctores.bin");
     int id = header.proximoID++;
@@ -32,22 +33,22 @@ void registrarDoctor() {
 
     if (d.validarDatos()) {
         if (GestorArchivos::agregarRegistro(d, "datos/doctores.bin")) {
-            std::cout << "Doctor registrado exitosamente." << std::endl;
+            cout << "Doctor registrado exitosamente." << endl;
             d.mostrarInformacionBasica();
         } else {
-            std::cout << "Error al guardar." << std::endl;
+            cout << "Error al guardar." << endl;
         }
     } else {
-        std::cout << "Datos invalidos." << std::endl;
+        cout << "Datos invalidos." << endl;
     }
 }
 
 void buscarDoctorPorID() {
-    std::cout << "=== BUSCAR DOCTOR POR ID ===" << std::endl;
+    cout << "=== BUSCAR DOCTOR POR ID ===" << endl;
     int id;
-    std::cout << "ID: ";
-    std::cin >> id;
-    std::cin.ignore();
+    cout << "ID: ";
+    cin >> id;
+    cin.ignore();
 
     int indice = GestorArchivos::buscarIndiceDeID<Doctor>(id, "datos/doctores.bin");
     if (indice != -1) {
@@ -58,11 +59,11 @@ void buscarDoctorPorID() {
             return;
         }
     }
-    std::cout << "Doctor no encontrado." << std::endl;
+    cout << "Doctor no encontrado." << endl;
 }
 
 void listarDoctores() {
-    std::cout << "=== LISTA DE DOCTORES ===" << std::endl;
+    cout << "=== LISTA DE DOCTORES ===" << endl;
     ArchivoHeader header = GestorArchivos::leerHeader("datos/doctores.bin");
     for (int i = 0; i < header.cantidadRegistros; ++i) {
         Doctor d;
@@ -73,22 +74,22 @@ void listarDoctores() {
 }
 
 void actualizarDoctor() {
-    std::cout << "=== ACTUALIZAR DOCTOR ===" << std::endl;
+    cout << "=== ACTUALIZAR DOCTOR ===" << endl;
     int id;
-    std::cout << "ID del doctor: ";
-    std::cin >> id;
-    std::cin.ignore();
+    cout << "ID del doctor: ";
+    cin >> id;
+    cin.ignore();
 
     int indice = GestorArchivos::buscarIndiceDeID<Doctor>(id, "datos/doctores.bin");
     if (indice == -1) {
-        std::cout << "Doctor no encontrado." << std::endl;
+        cout << "Doctor no encontrado." << endl;
         return;
     }
 
     Doctor d;
     GestorArchivos::leerRegistroPorIndice(indice, d, "datos/doctores.bin");
     if (d.isEliminado()) {
-        std::cout << "Doctor eliminado." << std::endl;
+        cout << "Doctor eliminado." << endl;
         return;
     }
 
@@ -96,17 +97,17 @@ void actualizarDoctor() {
     int anios;
     float costo;
 
-    std::cout << "Nuevo nombre: ";
-    std::cin.getline(nombre, 50);
-    std::cout << "Nuevo apellido: ";
-    std::cin.getline(apellido, 50);
-    std::cout << "Nueva especialidad: ";
-    std::cin.getline(especialidad, 50);
-    std::cout << "Nuevos anios: ";
-    std::cin >> anios;
-    std::cout << "Nuevo costo: ";
-    std::cin >> costo;
-    std::cin.ignore();
+    cout << "Nuevo nombre: ";
+    cin.getline(nombre, 50);
+    cout << "Nuevo apellido: ";
+    cin.getline(apellido, 50);
+    cout << "Nueva especialidad: ";
+    cin.getline(especialidad, 50);
+    cout << "Nuevos anios: ";
+    cin >> anios;
+    cout << "Nuevo costo: ";
+    cin >> costo;
+    cin.ignore();
 
     d.setNombre(nombre);
     d.setApellido(apellido);
@@ -116,22 +117,22 @@ void actualizarDoctor() {
 
     if (d.validarDatos()) {
         GestorArchivos::actualizarRegistro(id, d, "datos/doctores.bin");
-        std::cout << "Doctor actualizado." << std::endl;
+        cout << "Doctor actualizado." << endl;
     } else {
-        std::cout << "Datos invalidos." << std::endl;
+        cout << "Datos invalidos." << endl;
     }
 }
 
 void eliminarDoctor() {
-    std::cout << "=== ELIMINAR DOCTOR ===" << std::endl;
+    cout << "=== ELIMINAR DOCTOR ===" << endl;
     int id;
-    std::cout << "ID del doctor: ";
-    std::cin >> id;
-    std::cin.ignore();
+    cout << "ID del doctor: ";
+    cin >> id;
+    cin.ignore();
 
     if (GestorArchivos::eliminarRegistro<Doctor>(id, "datos/doctores.bin")) {
-        std::cout << "Doctor eliminado." << std::endl;
+        cout << "Doctor eliminado." << endl;
     } else {
-        std::cout << "Error." << std::endl;
+        cout << "Error." << endl;
     }
 }

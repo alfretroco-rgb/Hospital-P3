@@ -2,6 +2,7 @@
 #include "../utilidades/Validaciones.hpp"
 #include <iostream>
 #include <cstring>
+using namespace std;
 
 Doctor::Doctor() {
     id = 0;
@@ -175,13 +176,13 @@ bool Doctor::tieneCitas() const {
 }
 
 void Doctor::mostrarInformacionBasica() const {
-    std::cout << "ID: " << id << ", Nombre: " << nombre << " " << apellido << ", Especialidad: " << especialidad << std::endl;
+    cout << "ID: " << id << ", Nombre: " << nombre << " " << apellido << ", Especialidad: " << especialidad << endl;
 }
 
 void Doctor::mostrarInformacionCompleta() const {
     mostrarInformacionBasica();
-    std::cout << "Cedula: " << cedula << ", Anios Exp: " << aniosExperiencia << ", Costo: " << costoConsulta << std::endl;
-    std::cout << "Telefono: " << telefono << ", Email: " << email << ", Disponible: " << (disponible ? "Si" : "No") << std::endl;
+    cout << "Cedula: " << cedula << ", Anios Exp: " << aniosExperiencia << ", Costo: " << costoConsulta << endl;
+    cout << "Telefono: " << telefono << ", Email: " << email << ", Disponible: " << (disponible ? "Si" : "No") << endl;
 }
 
 size_t Doctor::obtenerTamano() {

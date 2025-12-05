@@ -4,13 +4,14 @@
 #include "../citas/Cita.hpp"
 #include "../historial/HistorialMedico.hpp"
 #include <iostream>
+using namespace std;
 
 long GestorArchivos::calcularPosicion(int indice, size_t tamanoRegistro) {
     return sizeof(ArchivoHeader) + (indice * tamanoRegistro);
 }
 
 bool GestorArchivos::verificarArchivo(const char* nombreArchivo) {
-    std::ifstream file(nombreArchivo, std::ios::binary);
+    ifstream file(nombreArchivo, ios::binary);
     if (!file.is_open()) return false;
     ArchivoHeader header;
     file.read((char*)&header, sizeof(ArchivoHeader));
@@ -27,9 +28,9 @@ bool GestorArchivos::inicializarSistemaArchivos() {
     for (int i = 0; i < 5; ++i) {
         if (!verificarArchivo(archivos[i])) {
             ArchivoHeader header = {0, 1, 0, 1};
-            std::ofstream file(archivos[i], std::ios::binary);
+            ofstream file(archivos[i], ios::binary);
             if (!file.is_open()) {
-                std::cerr << "Error al inicializar " << archivos[i] << std::endl;
+                cerr << "Error al inicializar " << archivos[i] << endl;
                 return false;
             }
             file.write((char*)&header, sizeof(ArchivoHeader));
@@ -41,7 +42,7 @@ bool GestorArchivos::inicializarSistemaArchivos() {
 
 ArchivoHeader GestorArchivos::leerHeader(const char* nombreArchivo) {
     ArchivoHeader header;
-    std::ifstream file(nombreArchivo, std::ios::binary);
+    ifstream file(nombreArchivo, ios::binary);
     if (!file.is_open()) {
         header.cantidadRegistros = 0;
         header.proximoID = 1;
@@ -55,7 +56,7 @@ ArchivoHeader GestorArchivos::leerHeader(const char* nombreArchivo) {
 }
 
 bool GestorArchivos::actualizarHeader(const char* nombreArchivo, ArchivoHeader header) {
-    std::ofstream file(nombreArchivo, std::ios::binary | std::ios::in | std::ios::out);
+    ofstream file(nombreArchivo, ios::binary | ios::in | ios::out);
     if (!file.is_open()) return false;
     file.seekp(0);
     file.write((char*)&header, sizeof(ArchivoHeader));

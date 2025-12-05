@@ -2,6 +2,7 @@
 #include "../utilidades/Validaciones.hpp"
 #include <iostream>
 #include <cstring>
+using namespace std;
 
 Cita::Cita() {
     id = 0;
@@ -93,13 +94,13 @@ void Cita::cancelar() {
 }
 
 void Cita::mostrarInformacionBasica() const {
-    std::cout << "ID: " << id << ", Paciente: " << idPaciente << ", Doctor: " << idDoctor << ", Fecha: " << fecha << " " << hora << std::endl;
+    cout << "ID: " << id << ", Paciente: " << idPaciente << ", Doctor: " << idDoctor << ", Fecha: " << fecha << " " << hora << endl;
 }
 
 void Cita::mostrarInformacionCompleta() const {
     mostrarInformacionBasica();
-    std::cout << "Motivo: " << motivo << ", Estado: " << estado << ", Atendida: " << (atendida ? "Si" : "No") << std::endl;
-    std::cout << "Observaciones: " << observaciones << std::endl;
+    cout << "Motivo: " << motivo << ", Estado: " << estado << ", Atendida: " << (atendida ? "Si" : "No") << endl;
+    cout << "Observaciones: " << observaciones << endl;
 }
 
 size_t Cita::obtenerTamano() {

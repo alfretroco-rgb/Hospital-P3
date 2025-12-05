@@ -4,6 +4,7 @@
 #include <cstring>
 #include <ctime>
 #include <iostream>
+using namespace std;
 
 class Cita {
 private:

@@ -1,5 +1,6 @@
 #include "Validaciones.hpp"
 #include <cctype>
+using namespace std;
 
 bool Validaciones::validarCedula(const char* cedula) {
     if (!cedula || strlen(cedula) == 0 || strlen(cedula) > 19) return false;

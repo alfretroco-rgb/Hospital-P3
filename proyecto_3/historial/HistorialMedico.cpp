@@ -1,6 +1,7 @@
 #include "HistorialMedico.hpp"
 #include <iostream>
 #include <cstring>
+using namespace std;
 
 HistorialMedico::HistorialMedico() {
     idConsulta = 0;
@@ -90,9 +91,9 @@ void HistorialMedico::setSiguiente(HistorialMedico* siguiente) {
 }
 
 void HistorialMedico::mostrarInformacion() const {
-    std::cout << "Consulta ID: " << idConsulta << ", Paciente: " << idPaciente << ", Doctor: " << idDoctor << std::endl;
-    std::cout << "Diagnostico: " << diagnostico << std::endl;
-    std::cout << "Tratamiento: " << tratamiento << ", Costo: " << costo << std::endl;
+    cout << "Consulta ID: " << idConsulta << ", Paciente: " << idPaciente << ", Doctor: " << idDoctor << endl;
+    cout << "Diagnostico: " << diagnostico << endl;
+    cout << "Tratamiento: " << tratamiento << ", Costo: " << costo << endl;
 }
 
 size_t HistorialMedico::obtenerTamano() {

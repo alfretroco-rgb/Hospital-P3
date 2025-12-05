@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstring>
 #include "Constantes.hpp"
+using namespace std;
 
 // Estructura de header igual que en Proyecto 2
 struct ArchivoHeader {
@@ -32,7 +33,7 @@ public:
     template<typename T>
     static bool agregarRegistro(const T& registro, const char* archivo) {
         ArchivoHeader header = leerHeader(archivo);
-        std::ofstream file(archivo, std::ios::binary | std::ios::app);
+        ofstream file(archivo, ios::binary | ios::app);
         if (!file.is_open()) return false;
         file.write((char*)&registro, sizeof(T));
         header.cantidadRegistros++;
@@ -44,7 +45,7 @@ public:
 
     template<typename T>
     static bool leerRegistroPorIndice(int indice, T& registro, const char* archivo) {
-        std::ifstream file(archivo, std::ios::binary);
+        ifstream file(archivo, ios::binary);
         if (!file.is_open()) return false;
         long posicion = calcularPosicion(indice, sizeof(T));
         file.seekg(posicion);
@@ -56,7 +57,7 @@ public:
     template<typename T>
     static int buscarIndiceDeID(int id, const char* archivo) {
         ArchivoHeader header = leerHeader(archivo);
-        std::ifstream file(archivo, std::ios::binary);
+        ifstream file(archivo, ios::binary);
         if (!file.is_open()) return -1;
 
         for (int i = 0; i < header.cantidadRegistros; ++i) {
@@ -78,7 +79,7 @@ public:
         int indice = buscarIndiceDeID<T>(id, archivo);
         if (indice == -1) return false;
 
-        std::ofstream file(archivo, std::ios::binary | std::ios::in | std::ios::out);
+        ofstream file(archivo, ios::binary | ios::in | ios::out);
         if (!file.is_open()) return false;
         long posicion = calcularPosicion(indice, sizeof(T));
         file.seekp(posicion);
@@ -101,7 +102,7 @@ public:
         ptr[sizeof(T) - 1] = 1;  // Último byte es bool
 
         // Actualizar
-        std::ofstream file(archivo, std::ios::binary | std::ios::in | std::ios::out);
+        ofstream file(archivo, ios::binary | ios::in | ios::out);
         if (!file.is_open()) return false;
         long posicion = calcularPosicion(indice, sizeof(T));
         file.seekp(posicion);

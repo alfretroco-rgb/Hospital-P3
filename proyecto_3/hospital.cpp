@@ -3,6 +3,7 @@
 #include <ctime>
 #include <iomanip>
 #include <fstream>
+#include <string>
 using namespace std;
 
 // Estructura para el header de cada archivo binario
@@ -1334,8 +1335,7 @@ int main() {
     
     do {
         cout << " _______________________________________" << endl;
-        cout << "|   SISTEMA DE GESTION HOSPITALARIA v2   |" << endl;
-        cout << "|         (Persistencia con Archivos)    |" << endl;
+        cout << "|   SISTEMA DE GESTION HOSPITALARIA v3   |" << endl;
         cout << " ---------------------------------------" << endl;
         cout << "1. Gestion de Pacientes" << endl;
         cout << "2. Gestion de Doctores" << endl;

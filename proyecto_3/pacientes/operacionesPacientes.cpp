@@ -2,25 +2,26 @@
 #include "../persistencia/GestorArchivos.hpp"
 #include <iostream>
 #include <cstring>
+using namespace std;
 
 void registrarPaciente() {
-    std::cout << "=== REGISTRAR NUEVO PACIENTE ===" << std::endl;
+    cout << "=== REGISTRAR NUEVO PACIENTE ===" << endl;
 
     char nombre[50], apellido[50], cedula[20];
     int edad;
     char sexo;
 
-    std::cout << "Nombre: ";
-    std::cin.getline(nombre, 50);
-    std::cout << "Apellido: ";
-    std::cin.getline(apellido, 50);
-    std::cout << "Cedula: ";
-    std::cin.getline(cedula, 20);
-    std::cout << "Edad: ";
-    std::cin >> edad;
-    std::cout << "Sexo (M/F): ";
-    std::cin >> sexo;
-    std::cin.ignore();  // Limpiar buffer
+    cout << "Nombre: ";
+    cin.getline(nombre, 50);
+    cout << "Apellido: ";
+    cin.getline(apellido, 50);
+    cout << "Cedula: ";
+    cin.getline(cedula, 20);
+    cout << "Edad: ";
+    cin >> edad;
+    cout << "Sexo (M/F): ";
+    cin >> sexo;
+    cin.ignore();  // Limpiar buffer
 
     // Generar ID real
     ArchivoHeader header = GestorArchivos::leerHeader("datos/pacientes.bin");
@@ -34,36 +35,36 @@ void registrarPaciente() {
 
     if (p.validarDatos()) {
         if (GestorArchivos::guardarPaciente(p)) {
-            std::cout << "Paciente registrado exitosamente:" << std::endl;
+            cout << "Paciente registrado exitosamente:" << endl;
             p.mostrarInformacionBasica();
         } else {
-            std::cout << "Error al guardar en archivo." << std::endl;
+            cout << "Error al guardar en archivo." << endl;
         }
     } else {
-        std::cout << "Error: Datos invalidos. Intente nuevamente." << std::endl;
+        cout << "Error: Datos invalidos. Intente nuevamente." << endl;
     }
 }
 
 void buscarPacientePorID() {
-    std::cout << "=== BUSCAR PACIENTE POR ID ===" << std::endl;
+    cout << "=== BUSCAR PACIENTE POR ID ===" << endl;
     int id;
-    std::cout << "ID: ";
-    std::cin >> id;
-    std::cin.ignore();
+    cout << "ID: ";
+    cin >> id;
+    cin.ignore();
 
     Paciente p;
     if (GestorArchivos::leerPacientePorID(id, p) && !p.isEliminado()) {
         p.mostrarInformacionCompleta();
     } else {
-        std::cout << "Paciente no encontrado." << std::endl;
+        cout << "Paciente no encontrado." << endl;
     }
 }
 
 void buscarPacientePorCedula() {
-    std::cout << "=== BUSCAR PACIENTE POR CEDULA ===" << std::endl;
+    cout << "=== BUSCAR PACIENTE POR CEDULA ===" << endl;
     char cedula[20];
-    std::cout << "Cedula: ";
-    std::cin.getline(cedula, 20);
+    cout << "Cedula: ";
+    cin.getline(cedula, 20);
 
     ArchivoHeader header = GestorArchivos::leerHeader("datos/pacientes.bin");
     for (int i = 0; i < header.cantidadRegistros; ++i) {
@@ -73,19 +74,19 @@ void buscarPacientePorCedula() {
             return;
         }
     }
-    std::cout << "Paciente no encontrado." << std::endl;
+    cout << "Paciente no encontrado." << endl;
 }
 
 void actualizarPaciente() {
-    std::cout << "=== ACTUALIZAR PACIENTE ===" << std::endl;
+    cout << "=== ACTUALIZAR PACIENTE ===" << endl;
     int id;
-    std::cout << "ID del paciente a actualizar: ";
-    std::cin >> id;
-    std::cin.ignore();
+    cout << "ID del paciente a actualizar: ";
+    cin >> id;
+    cin.ignore();
 
     Paciente p;
     if (!GestorArchivos::leerPacientePorID(id, p) || p.isEliminado()) {
-        std::cout << "Paciente no encontrado." << std::endl;
+        cout << "Paciente no encontrado." << endl;
         return;
     }
 
@@ -93,17 +94,17 @@ void actualizarPaciente() {
     int edad;
     char sexo;
 
-    std::cout << "Nuevo nombre: ";
-    std::cin.getline(nombre, 50);
-    std::cout << "Nuevo apellido: ";
-    std::cin.getline(apellido, 50);
-    std::cout << "Nueva cedula: ";
-    std::cin.getline(cedula, 20);
-    std::cout << "Nueva edad: ";
-    std::cin >> edad;
-    std::cout << "Nuevo sexo (M/F): ";
-    std::cin >> sexo;
-    std::cin.ignore();
+    cout << "Nuevo nombre: ";
+    cin.getline(nombre, 50);
+    cout << "Nuevo apellido: ";
+    cin.getline(apellido, 50);
+    cout << "Nueva cedula: ";
+    cin.getline(cedula, 20);
+    cout << "Nueva edad: ";
+    cin >> edad;
+    cout << "Nuevo sexo (M/F): ";
+    cin >> sexo;
+    cin.ignore();
 
     p.setNombre(nombre);
     p.setApellido(apellido);
@@ -113,37 +114,37 @@ void actualizarPaciente() {
 
     if (p.validarDatos()) {
         if (GestorArchivos::actualizarRegistro<Paciente>(id, p, "datos/pacientes.bin")) {
-            std::cout << "Paciente actualizado." << std::endl;
+            cout << "Paciente actualizado." << endl;
         } else {
-            std::cout << "Error al actualizar." << std::endl;
+            cout << "Error al actualizar." << endl;
         }
     } else {
-        std::cout << "Datos invalidos." << std::endl;
+        cout << "Datos invalidos." << endl;
     }
 }
 
 void eliminarPaciente() {
-    std::cout << "=== ELIMINAR PACIENTE ===" << std::endl;
+    cout << "=== ELIMINAR PACIENTE ===" << endl;
     int id;
-    std::cout << "ID del paciente a eliminar: ";
-    std::cin >> id;
-    std::cin.ignore();
+    cout << "ID del paciente a eliminar: ";
+    cin >> id;
+    cin.ignore();
 
     if (GestorArchivos::eliminarRegistro<Paciente>(id, "datos/pacientes.bin")) {
-        std::cout << "Paciente eliminado." << std::endl;
+        cout << "Paciente eliminado." << endl;
     } else {
-        std::cout << "Error al eliminar o paciente no encontrado." << std::endl;
+        cout << "Error al eliminar o paciente no encontrado." << endl;
     }
 }
 
 void listarTodosPacientes() {
-    std::cout << "=== LISTA DE PACIENTES ===" << std::endl;
+    cout << "=== LISTA DE PACIENTES ===" << endl;
     ArchivoHeader header = GestorArchivos::leerHeader("datos/pacientes.bin");
-    std::cout << "ID\tNombre\tApellido\tCedula\tEdad" << std::endl;
+    cout << "ID\tNombre\tApellido\tCedula\tEdad" << endl;
     for (int i = 0; i < header.cantidadRegistros; ++i) {
         Paciente p;
         if (GestorArchivos::leerRegistroPorIndice(i, p, "datos/pacientes.bin") && !p.isEliminado()) {
-            std::cout << p.getId() << "\t" << p.getNombre() << "\t" << p.getApellido() << "\t" << p.getCedula() << "\t" << p.getEdad() << std::endl;
+            cout << p.getId() << "\t" << p.getNombre() << "\t" << p.getApellido() << "\t" << p.getCedula() << "\t" << p.getEdad() << endl;
         }
     }
 }

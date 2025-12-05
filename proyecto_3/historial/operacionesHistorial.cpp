@@ -2,26 +2,27 @@
 #include "../persistencia/GestorArchivos.hpp"
 #include <iostream>
 #include <cstring>
+using namespace std;
 
 void agregarConsulta() {
-    std::cout << "=== AGREGAR CONSULTA AL HISTORIAL ===" << std::endl;
+    cout << "=== AGREGAR CONSULTA AL HISTORIAL ===" << endl;
 
     int idPaciente, idDoctor;
     char diagnostico[200], tratamiento[200];
     float costo;
 
-    std::cout << "ID Paciente: ";
-    std::cin >> idPaciente;
-    std::cout << "ID Doctor: ";
-    std::cin >> idDoctor;
-    std::cin.ignore();
-    std::cout << "Diagnostico: ";
-    std::cin.getline(diagnostico, 200);
-    std::cout << "Tratamiento: ";
-    std::cin.getline(tratamiento, 200);
-    std::cout << "Costo: ";
-    std::cin >> costo;
-    std::cin.ignore();
+    cout << "ID Paciente: ";
+    cin >> idPaciente;
+    cout << "ID Doctor: ";
+    cin >> idDoctor;
+    cin.ignore();
+    cout << "Diagnostico: ";
+    cin.getline(diagnostico, 200);
+    cout << "Tratamiento: ";
+    cin.getline(tratamiento, 200);
+    cout << "Costo: ";
+    cin >> costo;
+    cin.ignore();
 
     ArchivoHeader header = GestorArchivos::leerHeader("datos/historiales.bin");
     int id = header.proximoID++;
@@ -31,29 +32,29 @@ void agregarConsulta() {
 
     if (h.validarDatos()) {
         if (GestorArchivos::agregarRegistro(h, "datos/historiales.bin")) {
-            std::cout << "Consulta agregada." << std::endl;
+            cout << "Consulta agregada." << endl;
             h.mostrarInformacion();
         } else {
-            std::cout << "Error." << std::endl;
+            cout << "Error." << endl;
         }
     } else {
-        std::cout << "Datos invalidos." << std::endl;
+        cout << "Datos invalidos." << endl;
     }
 }
 
 void mostrarHistorialPaciente() {
-    std::cout << "=== HISTORIAL MEDICO DE PACIENTE ===" << std::endl;
+    cout << "=== HISTORIAL MEDICO DE PACIENTE ===" << endl;
     int idPaciente;
-    std::cout << "ID Paciente: ";
-    std::cin >> idPaciente;
-    std::cin.ignore();
+    cout << "ID Paciente: ";
+    cin >> idPaciente;
+    cin.ignore();
 
     ArchivoHeader header = GestorArchivos::leerHeader("datos/historiales.bin");
     for (int i = 0; i < header.cantidadRegistros; ++i) {
         HistorialMedico h;
         if (GestorArchivos::leerRegistroPorIndice(i, h, "datos/historiales.bin") && !h.isEliminado() && h.getIdPaciente() == idPaciente) {
             h.mostrarInformacion();
-            std::cout << "---" << std::endl;
+            cout << "---" << endl;
         }
     }
 }
