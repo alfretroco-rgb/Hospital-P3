@@ -3,7 +3,7 @@ filename=Hospital.dev
 name=Hospital
 Type=1
 Ver=2
-ObjFiles=main.o citas/operacionesCitas.o doctores/operacionesDoctores.o pacientes/operacionesPacientes.o historial/operacionesHistorial.o persistencia/GestorArchivos.o utilidades/Validaciones.o
+ObjFiles=main.o;citas/operacionesCitas.o;doctores/operacionesDoctores.o;pacientes/operacionesPacientes.o;historial/operacionesHistorial.o;persistencia/GestorArchivos.o;utilidades/Validaciones.o
 Includes=.;doctores;pacientes;citas;historial;persistencia;utilidades
 Libs=
 PrivateResource=
@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;16;0;0;0
-UnitCount=34
+UnitCount=28
 
 [VersionInfo]
 Major=1

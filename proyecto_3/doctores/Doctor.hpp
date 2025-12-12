@@ -1,6 +1,5 @@
 #ifndef DOCTOR_HPP
 #define DOCTOR_HPP
-
 #include <cstring>
 #include <ctime>
 #include <iostream>

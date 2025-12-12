@@ -4,6 +4,7 @@
 #include "../citas/Cita.hpp"
 #include "../historial/HistorialMedico.hpp"
 #include <iostream>
+#include <string>
 using namespace std;
 
 long GestorArchivos::calcularPosicion(int indice, size_t tamanoRegistro) {

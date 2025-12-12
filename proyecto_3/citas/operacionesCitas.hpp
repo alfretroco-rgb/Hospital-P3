@@ -1,6 +1,5 @@
 #ifndef OPERACIONES_CITAS_HPP
 #define OPERACIONES_CITAS_HPP
-
 #include "Cita.hpp"
 
 void agendarCita();

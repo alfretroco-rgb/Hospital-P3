@@ -1,6 +1,5 @@
 #ifndef CITA_HPP
 #define CITA_HPP
-
 #include <cstring>
 #include <ctime>
 #include <iostream>

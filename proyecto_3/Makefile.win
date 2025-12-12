@@ -1,18 +1,18 @@
-# Project: Hospital_Completo
+# Project: Hospital
 # Makefile created by Embarcadero Dev-C++ 6.3
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o
-LINKOBJ  = main.o
-LIBS     = -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib32" -static-libgcc -m32
-INCS     = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
-CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
-BIN      = Hospital_Completo.exe
+OBJ      = main.o citas/operacionesCitas.o doctores/operacionesDoctores.o pacientes/operacionesPacientes.o historial/operacionesHistorial.o persistencia/GestorArchivos.o utilidades/Validaciones.o citas/Cita.o doctores/Doctor.o historial/HistorialMedico.o pacientes/Paciente.o
+LINKOBJ  = main.o citas/operacionesCitas.o doctores/operacionesDoctores.o pacientes/operacionesPacientes.o historial/operacionesHistorial.o persistencia/GestorArchivos.o utilidades/Validaciones.o citas/Cita.o doctores/Doctor.o historial/HistorialMedico.o pacientes/Paciente.o
+LIBS     = -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc -m32
+INCS     = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"." -I"doctores" -I"pacientes" -I"citas" -I"historial" -I"persistencia" -I"utilidades"
+CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++" -I"." -I"doctores" -I"pacientes" -I"citas" -I"historial" -I"persistencia" -I"utilidades"
+BIN      = Hospital.exe
 CXXFLAGS = $(CXXINCS) -m32
 CFLAGS   = $(INCS) -m32
-DEL      = C:\Program Files (x86)\Embarcadero\Dev-Cpp\devcpp.exe INTERNAL_DEL
+DEL      = C:\Program Files (x86)\Embarcadero\Dev-Cpp\DevCpp.exe INTERNAL_DEL
 
 .PHONY: all all-before all-after clean clean-custom
 
@@ -26,3 +26,33 @@ $(BIN): $(OBJ)
 
 main.o: main.cpp
 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+citas/operacionesCitas.o: citas/operacionesCitas.cpp
+	$(CPP) -c citas/operacionesCitas.cpp -o citas/operacionesCitas.o $(CXXFLAGS)
+
+doctores/operacionesDoctores.o: doctores/operacionesDoctores.cpp
+	$(CPP) -c doctores/operacionesDoctores.cpp -o doctores/operacionesDoctores.o $(CXXFLAGS)
+
+pacientes/operacionesPacientes.o: pacientes/operacionesPacientes.cpp
+	$(CPP) -c pacientes/operacionesPacientes.cpp -o pacientes/operacionesPacientes.o $(CXXFLAGS)
+
+historial/operacionesHistorial.o: historial/operacionesHistorial.cpp
+	$(CPP) -c historial/operacionesHistorial.cpp -o historial/operacionesHistorial.o $(CXXFLAGS)
+
+persistencia/GestorArchivos.o: persistencia/GestorArchivos.cpp
+	$(CPP) -c persistencia/GestorArchivos.cpp -o persistencia/GestorArchivos.o $(CXXFLAGS)
+
+utilidades/Validaciones.o: utilidades/Validaciones.cpp
+	$(CPP) -c utilidades/Validaciones.cpp -o utilidades/Validaciones.o $(CXXFLAGS)
+
+citas/Cita.o: citas/Cita.cpp
+	$(CPP) -c citas/Cita.cpp -o citas/Cita.o $(CXXFLAGS)
+
+doctores/Doctor.o: doctores/Doctor.cpp
+	$(CPP) -c doctores/Doctor.cpp -o doctores/Doctor.o $(CXXFLAGS)
+
+historial/HistorialMedico.o: historial/HistorialMedico.cpp
+	$(CPP) -c historial/HistorialMedico.cpp -o historial/HistorialMedico.o $(CXXFLAGS)
+
+pacientes/Paciente.o: pacientes/Paciente.cpp
+	$(CPP) -c pacientes/Paciente.cpp -o pacientes/Paciente.o $(CXXFLAGS)
