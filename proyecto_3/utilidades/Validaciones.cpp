@@ -38,3 +38,15 @@ bool Validaciones::validarFecha(const char* fecha) {
 bool Validaciones::validarRango(int valor, int min, int max) {
     return valor >= min && valor <= max;
 }
+
+void Validaciones::estadisticasDeArchivos() {
+    ArchivoHeader hPac = GestorArchivos::leerHeader("datos/pacientes.bin");
+    ArchivoHeader hDoc = GestorArchivos::leerHeader("datos/doctores.bin");
+    ArchivoHeader hCit = GestorArchivos::leerHeader("datos/citas.bin");
+    ArchivoHeader hHis = GestorArchivos::leerHeader("datos/historiales.bin");
+    cout << "Estadisticas de Archivos:" << endl;
+    cout << "Pacientes: " << hPac.registrosActivos << " activos, " << hPac.cantidadRegistros << " total" << endl;
+    cout << "Doctores: " << hDoc.registrosActivos << " activos, " << hDoc.cantidadRegistros << " total" << endl;
+    cout << "Citas: " << hCit.registrosActivos << " activas, " << hCit.cantidadRegistros << " total" << endl;
+    cout << "Historiales: " << hHis.registrosActivos << " activos, " << hHis.cantidadRegistros << " total" << endl;
+}

@@ -3,6 +3,7 @@
 
 #include <cstring>
 #include <iostream>
+#include "../persistencia/GestorArchivos.hpp"
 using namespace std;
 
 class Validaciones {
@@ -12,6 +13,7 @@ public:
     static bool validarTelefono(const char* telefono);
     static bool validarFecha(const char* fecha);
     static bool validarRango(int valor, int min, int max);
+    static void estadisticasDeArchivos();
 };
 
 #endif

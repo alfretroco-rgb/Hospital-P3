@@ -7,7 +7,7 @@
 #include "Constantes.hpp"
 using namespace std;
 
-// Estructura de header igual que en Proyecto 2
+// Estructura de header 
 struct ArchivoHeader {
     int cantidadRegistros;
     int proximoID;
@@ -117,7 +117,7 @@ public:
         return true;
     }
 
-    // Métodos específicos para entidades (para facilidad, aunque templates sirven)
+    // Métodos específicos para entidades
     static bool guardarPaciente(const class Paciente& p);
     static bool leerPacientePorID(int id, class Paciente& p);
     static bool guardarDoctor(const class Doctor& d);
@@ -126,7 +126,12 @@ public:
     static bool leerCitaPorID(int id, class Cita& c);
     static bool guardarHistorial(const class HistorialMedico& h);
     static bool leerHistorialPorID(int id, class HistorialMedico& h);
-    // Agregar para otras entidades después
+    
+    // Funciones de utilidades del sistema
+    static bool verificarIntegridadReferencial();
+    static bool hacerRespaldo();
+    static bool restaurarRespaldo();
+    static bool compactarArchivos();
 };
 
 #endif

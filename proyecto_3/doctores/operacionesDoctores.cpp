@@ -73,6 +73,28 @@ void listarDoctores() {
     }
 }
 
+void listarDoctoresPorEspecialidad() {
+    cout << "=== LISTA DE DOCTORES POR ESPECIALIDAD ===" << endl;
+    char especialidad[50];
+    cout << "Especialidad: ";
+    cin.getline(especialidad, 50);
+
+    ArchivoHeader header = GestorArchivos::leerHeader("datos/doctores.bin");
+    bool encontrado = false;
+    for (int i = 0; i < header.cantidadRegistros; ++i) {
+        Doctor d;
+        if (GestorArchivos::leerRegistroPorIndice(i, d, "datos/doctores.bin") && !d.isEliminado()) {
+            if (strcmp(d.getEspecialidad(), especialidad) == 0) {
+                d.mostrarInformacionBasica();
+                encontrado = true;
+            }
+        }
+    }
+    if (!encontrado) {
+        cout << "No se encontraron doctores con esa especialidad." << endl;
+    }
+}
+
 void actualizarDoctor() {
     cout << "=== ACTUALIZAR DOCTOR ===" << endl;
     int id;

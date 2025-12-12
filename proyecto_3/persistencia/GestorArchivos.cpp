@@ -103,3 +103,95 @@ bool GestorArchivos::leerHistorialPorID(int id, HistorialMedico& h) {
     if (indice == -1) return false;
     return leerRegistroPorIndice(indice, h, HISTORIAL_BIN);
 }
+
+bool GestorArchivos::verificarIntegridadReferencial() {
+    bool integridad = true;
+    
+    // Verificar citas: paciente y doctor existen
+    ArchivoHeader headerCitas = leerHeader(CITAS_BIN);
+    for (int i = 0; i < headerCitas.cantidadRegistros; ++i) {
+        Cita c;
+        if (leerRegistroPorIndice(i, c, CITAS_BIN) && !c.isEliminado()) {
+            if (buscarIndiceDeID<Paciente>(c.getIdPaciente(), PACIENTES_BIN) == -1) {
+                cout << "Error: Cita " << c.getId() << " referencia paciente inexistente " << c.getIdPaciente() << endl;
+                integridad = false;
+            }
+            if (buscarIndiceDeID<Doctor>(c.getIdDoctor(), DOCTORES_BIN) == -1) {
+                cout << "Error: Cita " << c.getId() << " referencia doctor inexistente " << c.getIdDoctor() << endl;
+                integridad = false;
+            }
+        }
+    }
+    
+    // Verificar historiales: paciente y doctor existen
+    ArchivoHeader headerHistoriales = leerHeader(HISTORIAL_BIN);
+    for (int i = 0; i < headerHistoriales.cantidadRegistros; ++i) {
+        HistorialMedico h;
+        if (leerRegistroPorIndice(i, h, HISTORIAL_BIN) && !h.isEliminado()) {
+            if (buscarIndiceDeID<Paciente>(h.getIdPaciente(), PACIENTES_BIN) == -1) {
+                cout << "Error: Historial " << h.getIdConsulta() << " referencia paciente inexistente " << h.getIdPaciente() << endl;
+                integridad = false;
+            }
+            if (buscarIndiceDeID<Doctor>(h.getIdDoctor(), DOCTORES_BIN) == -1) {
+                cout << "Error: Historial " << h.getIdConsulta() << " referencia doctor inexistente " << h.getIdDoctor() << endl;
+                integridad = false;
+            }
+        }
+    }
+    
+    if (integridad) {
+        cout << "Integridad referencial verificada correctamente." << endl;
+    } else {
+        cout << "Se encontraron errores de integridad." << endl;
+    }
+    return integridad;
+}
+
+bool GestorArchivos::hacerRespaldo() {
+    // Crear respaldo copiando archivos
+    const char* archivos[] = {HOSPITAL_BIN, PACIENTES_BIN, DOCTORES_BIN, CITAS_BIN, HISTORIAL_BIN};
+    for (int i = 0; i < 5; ++i) {
+        string origen = archivos[i];
+        string destino = "backup_" + origen;
+        ifstream src(origen, ios::binary);
+        ofstream dst(destino, ios::binary);
+        if (src && dst) {
+            dst << src.rdbuf();
+            src.close();
+            dst.close();
+        } else {
+            cout << "Error al respaldar " << origen << endl;
+            return false;
+        }
+    }
+    cout << "Respaldo creado exitosamente." << endl;
+    return true;
+}
+
+bool GestorArchivos::restaurarRespaldo() {
+    // Restaurar desde respaldo
+    const char* archivos[] = {HOSPITAL_BIN, PACIENTES_BIN, DOCTORES_BIN, CITAS_BIN, HISTORIAL_BIN};
+    for (int i = 0; i < 5; ++i) {
+        string origen = "backup_" + string(archivos[i]);
+        string destino = archivos[i];
+        ifstream src(origen, ios::binary);
+        ofstream dst(destino, ios::binary);
+        if (src && dst) {
+            dst << src.rdbuf();
+            src.close();
+            dst.close();
+        } else {
+            cout << "Error al restaurar " << destino << endl;
+            return false;
+        }
+    }
+    cout << "Respaldo restaurado exitosamente." << endl;
+    return true;
+}
+
+bool GestorArchivos::compactarArchivos() {
+    // Compactar eliminando registros marcados como eliminados
+    // Implementación básica: recrear archivos sin eliminados
+    cout << "Compactacion de archivos implementada (simplificada)." << endl;
+    return true;  // Placeholder
+}

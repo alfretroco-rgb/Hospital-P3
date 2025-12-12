@@ -6,6 +6,7 @@
 void registrarDoctor();
 void buscarDoctorPorID();
 void listarDoctores();
+void listarDoctoresPorEspecialidad();
 void actualizarDoctor();
 void eliminarDoctor();
 

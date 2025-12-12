@@ -71,7 +71,6 @@ Paciente::Paciente(const Paciente& other) {
 }
 
 Paciente::~Paciente() {
-    // No hay punteros dinámicos, destructor vacío
 }
 
 int Paciente::getId() const { return id; }
